@@ -1,0 +1,39 @@
+@only_compile
+@test(ConstantInt)
+
+const int_const = 42
+
+@only_compile
+@test(ConstantString)
+
+const str_const = "string"
+
+@no_compile
+@test(ConstantAssign)
+
+const int_const = 42
+
+func main() {
+	int_const = 3
+}
+
+@main
+@test(VerifyConstant)
+
+const int_const = 42
+
+func main() {
+	@assert_true(42 == int_const)
+}
+
+@no_compile
+@test(ConstantGlobalNoFuncInit)
+
+func fib(n int) int {
+	if n == 0 || n == 1 {
+		return 1
+	}
+	return fib(n - 1) + fib(n - 2)
+}
+
+const int = fib(4)
